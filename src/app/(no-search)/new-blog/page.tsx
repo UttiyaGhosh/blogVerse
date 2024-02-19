@@ -27,7 +27,7 @@ export default function Home () {
         const addBlogBody ={
             title: title,
             body: content,
-            createdBy: 'User1',
+            createdBy: 'User1',//Sudarsh change to actaul userName
             category: category
         }
 
