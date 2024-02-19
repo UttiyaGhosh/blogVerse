@@ -14,18 +14,13 @@ export default function NavbarCenter () {
 
   return (
     <div className='flex w-9/12 justify-between'>
-      <div className='mx-4 w-4/5'>
+      <div className='mx-4 w-11/12'>
         <input 
         value={searchQuery}
         className='w-full rounded-md p-2 m-2 text-black' 
         type="text" 
         placeholder="Search" 
         onChange={handleChange}/>
-      </div>
-      <div className='mx-4 flex items-center'>
-        <Link href="/new-post">
-          <p>New Post</p>
-        </Link>
       </div>
     </div>
   );

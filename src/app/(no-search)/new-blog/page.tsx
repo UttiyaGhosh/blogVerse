@@ -68,7 +68,9 @@ export default function Home () {
             </div>
             <div className='flex'>
                 <Category category={category} setCategory={setCategory}/>
-                <Editor content={content} setContent={setContent}/>
+                <div className='w-4/5 '>
+                    <Editor content={content} setContent={setContent}/>
+                </div>
             </div>
         </div>
     );

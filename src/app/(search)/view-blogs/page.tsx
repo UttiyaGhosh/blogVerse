@@ -1,15 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-export type blogType = {
-  _id:string,
-  title:string,
-  content:TrustedHTML,
-  userName:string,
-  createdDate:string,
-  summary:string
-}
+import { blogType } from "../my-blog/page";
 
 export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
@@ -35,7 +27,9 @@ export default function Home() {
             </div>
             <h1 className="text-2xl my-2">{blog.title}</h1>
             <div className="">{blog.summary}</div>
-            <p className=" inline-block bg-amber-700 min-w-max p-2 rounded-xl my-2 text-white">Programming</p>
+            <p className=" inline-block bg-amber-700 min-w-max p-2 rounded-xl my-2 text-white">
+              {blog.category[0].toUpperCase() + blog.category.substring(1)}
+            </p>
           </div>
         ))
       }
