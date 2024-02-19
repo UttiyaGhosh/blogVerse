@@ -1,9 +1,10 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from "next/link";
+import { SearchContext } from "@/contexts/SearchContext";
 
 export type blogType = {
   _id:string,
@@ -17,11 +18,14 @@ export type blogType = {
 export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
   const userId = "65cceadebbed8dce9c357bb6" //Sudarsh change with actual userId
+  const {searchQuery, setSearchQuery} = useContext(SearchContext);
 
   const fetchData = () =>{
-    axios.get(`http://localhost:3002/blogs/?createdBy=${userId}`)
+    const searchUrl = searchQuery.length>=3?
+      `http://localhost:3002/blogs/?createdBy=${userId}&searchQuery=${searchQuery}`:
+      `http://localhost:3002/blogs/?createdBy=${userId}`
+    axios.get(searchUrl)
         .then(response => {
-            console.log(response.data)
             setBlogs(response.data)
         })
         .catch(error => {
@@ -31,7 +35,7 @@ export default function Home() {
 
   useEffect(()=>{
     fetchData()
-  },[])
+  },[searchQuery])
 
   const handleDelete = async (blogId:string) =>{
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
@@ -62,7 +66,7 @@ export default function Home() {
                     <Link href={`/edit-blog/${blog._id}`}>
                       <FontAwesomeIcon className="mx-4 my-0.5" icon={faEdit} />
                     </Link>
-                    <FontAwesomeIcon className="mx-2 my-0.5" icon={faTrashAlt} onClick={()=>handleDelete(blog._id)}/>
+                    <FontAwesomeIcon className="mx-2 my-0.5 cursor-pointer" icon={faTrashAlt} onClick={()=>handleDelete(blog._id)}/>
                 </div>
                 <h1 className="text-2xl my-2">{blog.title}</h1>
                 <div className="">{blog.summary}</div>

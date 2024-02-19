@@ -1,16 +1,9 @@
 'use client'
-import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import { SearchContext } from '@/contexts/SearchContext';
+import { ChangeEvent, useContext } from 'react';
 
 export default function NavbarCenter () {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleChange = (e:ChangeEvent<HTMLInputElement>) =>{
-    const searchKey = e.target.value
-    setSearchQuery(searchKey)
-    if(searchKey.length>=3)
-      console.log(searchKey)
-  }
+  const {searchQuery, setSearchQuery} = useContext(SearchContext);
 
   return (
     <div className='flex w-9/12 justify-between'>
@@ -20,7 +13,7 @@ export default function NavbarCenter () {
         className='w-full rounded-md p-2 m-2 text-black' 
         type="text" 
         placeholder="Search" 
-        onChange={handleChange}/>
+        onChange={(e)=>setSearchQuery(e.target.value)}/>
       </div>
     </div>
   );

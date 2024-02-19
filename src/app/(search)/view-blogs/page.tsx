@@ -1,21 +1,23 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { blogType } from "../my-blog/page";
+import { SearchContext } from "@/contexts/SearchContext";
 
 export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
+  const {searchQuery, setSearchQuery} = useContext(SearchContext);
 
   useEffect(()=>{
-    axios.get('http://localhost:3002/blogs')
+    const searchUrl = searchQuery.length>=3?`http://localhost:3002/blogs/?searchQuery=${searchQuery}`:'http://localhost:3002/blogs'
+    axios.get(searchUrl)
         .then(response => {
-            console.log(response.data)
             setBlogs(response.data)
         })
         .catch(error => {
             console.error('Error:', error);
         });
-},[])
+    },[searchQuery])
 
   return (
     <div className="flex flex-col items-center">
