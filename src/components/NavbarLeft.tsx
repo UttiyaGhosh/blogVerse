@@ -4,18 +4,13 @@ export default function NavbarLeft () {
   return (
     <div className='flex my-4'>
       <div className='mx-4  flex items-center'>
-        <Link href="/search">
+        <Link href="/view-blogs">
           <p>Home</p>
         </Link>
       </div>
       <div className='mx-4 flex items-center'>
-        <Link href="/profile">
-          <p>Profile</p>
-        </Link>
-      </div>
-      <div className='mx-4 flex items-center'>
-        <Link href="/my-post">
-          <p>My Post</p>
+        <Link href="/my-blog">
+          <p>My Blogs</p>
         </Link>
       </div>
     </div>

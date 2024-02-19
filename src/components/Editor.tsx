@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, Dispatch, SetStateAction } from 'react';
+import {useRef, useMemo, Dispatch, SetStateAction } from 'react';
 import dynamic from 'next/dynamic';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -26,7 +26,7 @@ export default function Editor({ content, setContent }: EditorPropType) {
     );
 
     return (
-        <div className='w-4/5 min-h-72'>
+        <div className='min-h-72'>
             <ReactQuill
                 theme='snow'
                 className='editor'
