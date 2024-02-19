@@ -13,6 +13,11 @@ export default function NavbarLeft () {
           <p>Profile</p>
         </Link>
       </div>
+      <div className='mx-4 flex items-center'>
+        <Link href="/my-post">
+          <p>My Post</p>
+        </Link>
+      </div>
     </div>
   );
 };

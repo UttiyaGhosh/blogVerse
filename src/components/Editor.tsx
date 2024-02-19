@@ -1,7 +1,6 @@
 import { useState, useRef, useMemo, Dispatch, SetStateAction } from 'react';
 import dynamic from 'next/dynamic';
 
-// Dynamic import of Quill editor and CSS
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
