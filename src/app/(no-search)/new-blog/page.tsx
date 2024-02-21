@@ -24,22 +24,35 @@ export default function Home () {
             return
         }
 
-        const addBlogBody ={
-            title: title,
-            body: content,
-            createdBy: 'User1',//Sudarsh change to actaul userName
-            category: category
-        }
-
-        axios.post('http://localhost:3002/blogs/add', addBlogBody , {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+        axios.get(`http://localhost:3002/categories?createNew=true&name=${category}`)
             .then(response => {
                 console.log('Response:', response.data);
-                setTitle('')
-                setContent('')
+                
+                const addBlogBody ={
+                    title: title,
+                    body: content,
+                    createdBy: 'User1',//Sudarsh change to actual userName
+                    category: category
+                }
+
+                axios.post(
+                    'http://localhost:3002/blogs/add', 
+                    addBlogBody , 
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                )
+                .then(response => {
+                    console.log('Response:', response.data);
+                    setTitle('')
+                    setContent('')
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
             })
             .catch(error => {
                 console.error('Error:', error);
