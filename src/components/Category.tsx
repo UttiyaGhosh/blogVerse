@@ -15,6 +15,7 @@ export default function Category ({ category, setCategory }: CategoryPropType) {
     useEffect(()=>{
         axios.get('http://localhost:3002/categories')
             .then(response => {
+                console.log(response.data)
                 setCategoryList(response.data);
                 setCategory(response.data[0])
             })
@@ -40,7 +41,7 @@ export default function Category ({ category, setCategory }: CategoryPropType) {
             <select id="categoryDropdown" className='border border-gray-600 rounded-md mt-4 p-2' onChange={handleCategory}>
                 {
                     categoryList.map((category,index) => (
-                            <option key = {index} value={category}>{category && category[0].toUpperCase() + category.substring(1)}</option>
+                            <option key = {index} value={category}>{category}</option>
                         ))
                 }
                             <option value='other'>Other</option>
