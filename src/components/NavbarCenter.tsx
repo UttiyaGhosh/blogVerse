@@ -1,15 +1,19 @@
-import Link from 'next/link';
+'use client'
+import { SearchContext } from '@/contexts/SearchContext';
+import { ChangeEvent, useContext } from 'react';
 
 export default function NavbarCenter () {
+  const {searchQuery, setSearchQuery} = useContext(SearchContext);
+
   return (
-    <div className='flex w-4/5 justify-between'>
-      <div className='mx-4 w-4/5'>
-        <input className='w-full rounded-md p-2 m-2' type="text" placeholder="Search" />
-      </div>
-      <div className='mx-4 flex items-center'>
-        <Link href="/new-post">
-          <p>New Post</p>
-        </Link>
+    <div className='flex w-9/12 justify-between'>
+      <div className='mx-4 w-11/12'>
+        <input 
+        value={searchQuery}
+        className='w-full rounded-md p-2 m-2 text-black' 
+        type="text" 
+        placeholder="Search" 
+        onChange={(e)=>setSearchQuery(e.target.value)}/>
       </div>
     </div>
   );

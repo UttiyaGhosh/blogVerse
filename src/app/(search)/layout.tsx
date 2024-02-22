@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
-import Navbar from "@/components/Navbar";
 import NavbarLeft from "@/components/NavbarLeft";
+import NavbarCenter from "@/components/NavbarCenter";
 import NavbarRight from "@/components/NavbarRight";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,6 +17,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
       <div>
         <div className='bg-amber-700 text-white flex justify-between'>
           <NavbarLeft/>
+          <NavbarCenter/>
           <NavbarRight/>
         </div>
         {children}
