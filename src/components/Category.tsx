@@ -11,9 +11,10 @@ export type CategoryPropType = {
 export default function Category ({ category, setCategory }: CategoryPropType) {
     const [newCategory, setNewCategory] = useState('');
     const [categoryList,setCategoryList] = useState([''])
-
+    const serverUrl = process.env.SERVER_URL
+    
     useEffect(()=>{
-        axios.get('http://localhost:3002/categories')
+        axios.get(`${serverUrl}/api/categories`)
             .then(response => {
                 console.log(response.data)
                 setCategoryList(response.data);

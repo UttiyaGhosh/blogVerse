@@ -19,11 +19,12 @@ export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
   const userId = "65cceadebbed8dce9c357bb6" //Sudarsh change with actual userId
   const {searchQuery, setSearchQuery} = useContext(SearchContext);
+  const serverUrl = process.env.SERVER_URL
 
   const fetchData = () =>{
     const searchUrl = searchQuery.length>=3?
-      `http://localhost:3002/blogs/?createdBy=${userId}&searchQuery=${searchQuery}`:
-      `http://localhost:3002/blogs/?createdBy=${userId}`
+      `${serverUrl}/api/blogs/?createdBy=${userId}&searchQuery=${searchQuery}`:
+      `${serverUrl}/api/blogs/?createdBy=${userId}`
     axios.get(searchUrl)
         .then(response => {
             setBlogs(response.data)
@@ -42,7 +43,7 @@ export default function Home() {
 
     if (confirmDelete) {
         try{
-          await axios.post(`http://localhost:3002/blogs/delete/${blogId}`)
+          await axios.post(`${serverUrl}/api/blogs/delete/${blogId}`)
           fetchData()
         }catch (error) {
           console.error('Error:', error);

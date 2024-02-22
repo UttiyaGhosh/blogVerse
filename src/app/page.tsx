@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 flex items-center justify-center p-24">
-        <LoginForm /> {/* Render the LoginForm component */}
+        <LoginForm />
       </main>
-      <Footer /> {/* Include the Footer component */}
+      <Footer />
     </div>
   );
 }

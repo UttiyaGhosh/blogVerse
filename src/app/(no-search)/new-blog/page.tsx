@@ -8,6 +8,7 @@ export default function Home () {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
+    const serverUrl = process.env.SERVER_URL
 
     const handlePublish = ()=>{
         if(!title){
@@ -24,7 +25,7 @@ export default function Home () {
             return
         }
 
-        axios.get(`http://localhost:3002/categories?createNew=true&name=${category}`)
+        axios.get(`${serverUrl}/api/categories?createNew=true&name=${category}`)
             .then(response => {
                 console.log('Response:', response.data);
                 
@@ -36,7 +37,7 @@ export default function Home () {
                 }
 
                 axios.post(
-                    'http://localhost:3002/blogs/add', 
+                    `${serverUrl}/api/blogs/add`, 
                     addBlogBody , 
                     {
                         headers: {

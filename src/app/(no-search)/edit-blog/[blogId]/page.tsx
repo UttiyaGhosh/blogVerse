@@ -17,19 +17,21 @@ export default function Home ({ params }: { params: { blogId: string } }) {
     const [content, setContent] = useState('');
 
     const blogId = params.blogId
+    const serverUrl = process.env.SERVER_URL
+
     
-      useEffect(()=>{
-        axios.get(`http://localhost:3002/blogs/?id=${blogId}`)
-            .then(response => {
-                const blog:singleBlogType = response.data[0]
-                console.log(blog)
-                setBlog(blog)
-                setContent(blog.summary)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-      },[])
+    useEffect(()=>{
+    axios.get(`${serverUrl}/api/blogs/?id=${blogId}`)
+        .then(response => {
+            const blog:singleBlogType = response.data[0]
+            console.log(blog)
+            setBlog(blog)
+            setContent(blog.summary)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    },[])
       
     // const handlePublish = ()=>{
     //     if(!content){

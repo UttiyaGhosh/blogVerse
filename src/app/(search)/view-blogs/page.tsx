@@ -7,9 +7,10 @@ import { SearchContext } from "@/contexts/SearchContext";
 export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
   const {searchQuery, setSearchQuery} = useContext(SearchContext);
+  const serverUrl = process.env.SERVER_URL
 
   useEffect(()=>{
-    const searchUrl = searchQuery.length>=3?`http://localhost:3002/blogs/?searchQuery=${searchQuery}`:'http://localhost:3002/blogs'
+    const searchUrl = searchQuery.length>=3?`${serverUrl}/api/blogs/?searchQuery=${searchQuery}`:'${serverUrl}/api/blogs'
     axios.get(searchUrl)
         .then(response => {
             setBlogs(response.data)
