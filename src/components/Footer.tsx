@@ -2,14 +2,14 @@ import React from 'react';
  
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-amber-700 text-white py-12">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
         <div className="mb-8 md:mb-0">
           <h3 className="text-xl font-bold">Stay Connected</h3>
           <p className="mt-2">Join our newsletter for the latest updates.</p>
         </div>
         <div className="flex items-center space-x-4">
-          <input type="email" placeholder="Enter your email" className="bg-gray-800 text-white px-4 py-2 rounded outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="email" placeholder="Enter your email" className="px-4 py-2 rounded outline-none focus:ring-2 focus:ring-blue-500" />
           <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Subscribe</button>
         </div>
         <div className="mt-8 md:mt-0">

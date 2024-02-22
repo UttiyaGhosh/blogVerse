@@ -49,9 +49,9 @@ const LoginForm = () => {
   };
  
   return (
-    <div className="bg-gray-100 h-screen flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <h2 className="text-2xl font-bold mb-8">User Login</h2>
-      <form onSubmit={handleLogin} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleLogin} className="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
           <input
@@ -81,7 +81,7 @@ const LoginForm = () => {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-2 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
@@ -89,7 +89,7 @@ const LoginForm = () => {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 m-2 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login with Google'}
