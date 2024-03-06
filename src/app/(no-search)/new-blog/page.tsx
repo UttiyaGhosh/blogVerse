@@ -8,7 +8,7 @@ export default function Home () {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
-    const serverUrl = process.env.SERVER_URL
+    const serverUrl = "https://blog-verse-server.vercel.app"
 
     const handlePublish = ()=>{
         if(!title){

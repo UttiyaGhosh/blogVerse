@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import clsx from 'clsx';
 import axios from "axios";
+import clsx from 'clsx';
 
 export type CategoryPropType = {
     category:string
@@ -11,7 +11,7 @@ export type CategoryPropType = {
 export default function Category ({ category, setCategory }: CategoryPropType) {
     const [newCategory, setNewCategory] = useState('');
     const [categoryList,setCategoryList] = useState([''])
-    const serverUrl = process.env.SERVER_URL
+    const serverUrl = "https://blog-verse-server.vercel.app"
     
     useEffect(()=>{
         axios.get(`${serverUrl}/api/categories`)

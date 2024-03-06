@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from "next/link";
 import { SearchContext } from "@/contexts/SearchContext";
 
@@ -19,7 +19,7 @@ export default function Home() {
   const [blogs, setBlogs] = useState<blogType[]>([]);
   const userId = "65cceadebbed8dce9c357bb6" //Sudarsh change with actual userId
   const {searchQuery, setSearchQuery} = useContext(SearchContext);
-  const serverUrl = process.env.SERVER_URL
+  const serverUrl = "https://blog-verse-server.vercel.app"
 
   const fetchData = () =>{
     const searchUrl = searchQuery.length>=3?
