@@ -11,7 +11,6 @@ export default function Home() {
   const serverUrl = "https://blog-verse-server.vercel.app"
 
   useEffect(()=>{
-    console.log(serverUrl)
     const searchUrl = searchQuery.length>=3?`${serverUrl}/api/blogs/?searchQuery=${searchQuery}`:`${serverUrl}/api/blogs`
     axios.get(searchUrl)
         .then(response => {
@@ -27,16 +26,17 @@ export default function Home() {
       {
         blogs.map((blog,index)=>(
           <div key={index} className="w-2/3 m-2 p-2 rounded-md border-b">
-            <div className="flex">
-              <p> Created By <strong className="text-amber-700"> {blog.userName} </strong> on <strong> {blog.createdDate} </strong></p>
-            </div>
+            
             <Link href={`/show-blog/${blog._id}`}>
               <h1 className="text-2xl my-2"><u>{blog.title}</u></h1>
             </Link>
             <div className="">{blog.summary}</div>
-            <p className=" inline-block bg-amber-700 min-w-max p-2 rounded-xl my-2 text-white">
-              {blog.category[0].toUpperCase() + blog.category.substring(1)}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className=" inline-block bg-amber-700 min-w-max p-2 rounded-xl my-2 text-white">
+                {blog.category[0].toUpperCase() + blog.category.substring(1)}
+              </p>
+              <p> Created By <strong className="text-amber-700"> {blog.userName} </strong> on <strong> {blog.createdDate} </strong></p>
+            </div>
           </div>
         ))
       }

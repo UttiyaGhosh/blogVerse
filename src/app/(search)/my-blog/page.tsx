@@ -43,7 +43,7 @@ export default function Home() {
 
     if (confirmDelete) {
         try{
-          await axios.post(`${serverUrl}/api/blogs/delete/${blogId}`)
+          await axios.delete(`${serverUrl}/api/blogs/${blogId}`)
           fetchData()
         }catch (error) {
           console.error('Error:', error);

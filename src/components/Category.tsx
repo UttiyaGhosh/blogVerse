@@ -33,7 +33,23 @@ export default function Category ({ category, setCategory }: CategoryPropType) {
     };
 
     const handleNewCategorySubmit = ()=>{
-        setCategory(newCategory)
+        console.log(newCategory)
+        axios.post(
+            `${serverUrl}/api/categories`, 
+            {
+                "name": newCategory
+            }, 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     return (
@@ -45,7 +61,7 @@ export default function Category ({ category, setCategory }: CategoryPropType) {
                             <option key = {index} value={category}>{category}</option>
                         ))
                 }
-                            <option value='other'>Other</option>
+                            <option value='other'>other</option>
             </select>
             <form onSubmit={handleNewCategorySubmit} className={clsx("flex mt-4 mr-2 justify-between",{" hidden":category !== 'other'})}>
                 <input type='text' 

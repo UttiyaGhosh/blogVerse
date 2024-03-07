@@ -9,58 +9,28 @@ export type singleBlogType = {
     title:string,
     userName:string,
     createdDate:string,
-    summary:string,
+    body:string,
     category:string
   }
 
 export default function Home ({ params }: { params: { blogId: string } }) {
     const [blog, setBlog] = useState<singleBlogType>();
-    const [content, setContent] = useState('');
 
     const blogId = params.blogId
     const serverUrl = "https://blog-verse-server.vercel.app"
 
     
     useEffect(()=>{
-    axios.get(`${serverUrl}/api/blogs/?id=${blogId}`)
+    axios.get(`${serverUrl}/api/blogs/${blogId}`)
         .then(response => {
-            const blog:singleBlogType = response.data[0]
+            const blog:singleBlogType = response.data
             console.log(blog)
             setBlog(blog)
-            setContent(blog.summary)
         })
         .catch(error => {
             console.error('Error:', error);
         });
     },[])
-      
-    // const handlePublish = ()=>{
-    //     if(!content){
-    //         alert('Enter a content')
-    //         return
-    //     }
-
-    //     const editBlogBody ={
-    //         title: title,
-    //         body: content,
-    //         createdBy: 'User1',
-    //         category: category
-    //     }
-
-    //     axios.post('http://localhost:3002/blogs/add', addBlogBody , {
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         })
-    //         .then(response => {
-    //             console.log('Response:', response.data);
-    //             setTitle('')
-    //             setContent('')
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }
 
     return (
         <div className='flex flex-col justify-center'>
@@ -83,9 +53,11 @@ export default function Home ({ params }: { params: { blogId: string } }) {
                     </p>
                 </div>
             </div>
-            <div className='p-4'>
-                {blog && blog.summary}
-            </div>
+            {
+                blog && (
+                    <div className='p-4' dangerouslySetInnerHTML={{ __html: blog.body }}></div>
+                )
+            }
         </div>
     );
 };

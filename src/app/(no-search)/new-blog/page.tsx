@@ -8,6 +8,7 @@ export default function Home () {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
+    const [message, setMessage] = useState('');
     const serverUrl = "https://blog-verse-server.vercel.app"
 
     const handlePublish = ()=>{
@@ -24,47 +25,41 @@ export default function Home () {
             alert('Enter new category')
             return
         }
-
-        axios.get(`${serverUrl}/api/categories?createNew=true&name=${category}`)
-            .then(response => {
-                console.log('Response:', response.data);
                 
-                const addBlogBody ={
-                    title: title,
-                    body: content,
-                    createdBy: 'User1',//Sudarsh change to actual userName
-                    category: category
+        const addBlogBody ={
+            title: title,
+            body: content,
+            createdBy: 'User1',//Sudarsh change to actual userName
+            category: category
+        }
+
+        axios.post(
+            `${serverUrl}/api/blogs`, 
+            addBlogBody , 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-
-                axios.post(
-                    `${serverUrl}/api/blogs/add`, 
-                    addBlogBody , 
-                    {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                )
-                .then(response => {
-                    console.log('Response:', response.data);
-                    setTitle('')
-                    setContent('')
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            }
+        )
+        .then(response => {
+            console.log('Response:', response.data);
+            setTitle('')
+            setContent('')
+            setMessage('Blog Saved!')
+        })
+        .catch(error => {
+            setMessage('Publishing Error!')
+            console.error('Error:', error);
+        });
+            
     }
 
     return (
         <div className='flex flex-col justify-center'>
             <div className='flex'>
                 <div className='w-1/6'></div>
-                <div className='flex w-5/6'>
+                <div className='flex w-5/6 items-center'>
                     <input 
                         id='title' 
                         placeholder='Enter Title' 
@@ -78,6 +73,7 @@ export default function Home () {
                         onClick={handlePublish}>
                         Publish
                     </button>
+                    <p>{message}</p>
                 </div>
             </div>
             <div className='flex'>
