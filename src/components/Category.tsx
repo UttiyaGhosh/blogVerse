@@ -4,36 +4,28 @@ import axios from "axios";
 import clsx from 'clsx';
 
 export type CategoryPropType = {
-    category:string
+    categoryList:string[]
     setCategory: Dispatch<SetStateAction<string>>
 }
 
-export default function Category ({ category, setCategory }: CategoryPropType) {
+export default function Category ({ categoryList, setCategory }: CategoryPropType) {
     const [newCategory, setNewCategory] = useState('');
-    const [categoryList,setCategoryList] = useState([''])
-    const serverUrl = "https://blog-verse-server.vercel.app"
-    
-    useEffect(()=>{
-        axios.get(`${serverUrl}/api/categories`)
-            .then(response => {
-                console.log(response.data)
-                setCategoryList(response.data);
-                setCategory(response.data[0])
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    },[])
+    const [showAddCategory,setShowAddCategory] = useState(false)
+    const [categories, setCategories] = useState<string[]>([]);
+    const serverUrl = "https://blog-verse-server.vercel.app"    
+
+    useEffect(() => {
+        setCategories(categoryList);
+    }, [categoryList]);
 
     const handleCategory = (e:ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = e.target.value
-        if(selectedCategory === 'other')
-            setNewCategory('')
+        setShowAddCategory(selectedCategory === 'other')
         setCategory(selectedCategory);
     };
 
-    const handleNewCategorySubmit = ()=>{
-        console.log(newCategory)
+    const handleNewCategorySubmit = async (event: React.FormEvent<HTMLFormElement>)=>{
+        event.preventDefault();
         axios.post(
             `${serverUrl}/api/categories`, 
             {
@@ -43,27 +35,31 @@ export default function Category ({ category, setCategory }: CategoryPropType) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
-            .then(response => {
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            }
+        )
+        .then(response => {
+            setCategories(prevCategories=>[...prevCategories.slice(0,-1),response.data.name,...prevCategories.slice(-1)]);
+            setCategory(response.data.name)
+            setNewCategory('')
+            setShowAddCategory(false)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
     }
 
     return (
-        <div className='w-1/6 pl-2'>
+        <div className=' pl-2'>
             <p className='text-xl text-amber-700'>Choose Category...</p>
-            <select id="categoryDropdown" className='border border-gray-600 rounded-md mt-4 p-2' onChange={handleCategory}>
+            <select id="categoryDropdown" className='border border-gray-600 rounded-md mt-4 p-2' onChange={handleCategory} >
                 {
-                    categoryList.map((category,index) => (
-                            <option key = {index} value={category}>{category}</option>
+                    categories.map((category,index) => (
+                            <option key = {index} value={category}>{category==""?"All":category}</option>
                         ))
                 }
-                            <option value='other'>other</option>
             </select>
-            <form onSubmit={handleNewCategorySubmit} className={clsx("flex mt-4 mr-2 justify-between",{" hidden":category !== 'other'})}>
+            <form onSubmit={handleNewCategorySubmit} className={clsx("flex mt-4 mr-2 justify-between",{" hidden":!showAddCategory})}>
                 <input type='text' 
                 className="w-3/5 border-b border-gray-300"
                 value={newCategory} 

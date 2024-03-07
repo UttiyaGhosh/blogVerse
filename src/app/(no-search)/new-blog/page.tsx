@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Editor from '@/components/Editor';
 import axios from 'axios';
 import Category from '@/components/Category';
@@ -8,8 +8,19 @@ export default function Home () {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
+    const [categoryList,setCategoryList] = useState([''])
     const [message, setMessage] = useState('');
     const serverUrl = "https://blog-verse-server.vercel.app"
+
+    useEffect(()=>{
+        axios.get(`${serverUrl}/api/categories`)
+            .then(response => {
+                setCategoryList([...response.data,"other"]);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    },[])
 
     const handlePublish = ()=>{
         if(!title){
@@ -22,7 +33,7 @@ export default function Home () {
         }
         
         if(category === 'other'){
-            alert('Enter new category')
+            alert('Enter new category. If already entered press Add.')
             return
         }
                 
@@ -77,7 +88,9 @@ export default function Home () {
                 </div>
             </div>
             <div className='flex'>
-                <Category category={category} setCategory={setCategory}/>
+                <div className='w-1/6'>
+                    <Category categoryList={categoryList} setCategory={setCategory}/>
+                </div>
                 <div className='w-4/5 '>
                     <Editor content={content} setContent={setContent}/>
                 </div>
